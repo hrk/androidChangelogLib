@@ -2,7 +2,8 @@
 	android:id="@+id/changelog_scrollview"
 	android:orientation="vertical"
 	android:layout_width="wrap_content"
-	android:layout_height="wrap_content">
+	android:layout_height="wrap_content"
+	android:background="@android:color/transparent">
 	<LinearLayout
 		android:id="@+id/changelog_container"
 		android:orientation="vertical"
