@@ -8,7 +8,6 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.XmlResourceParser;
 import android.graphics.Typeface;
 import android.text.SpannableString;
@@ -20,9 +19,9 @@ import android.widget.TextView;
 
 public class ChangelogFactory {
 
-	private final static String CHANGELOG = "changelog";
+	// private final static String CHANGELOG = "changelog";
 	private final static String RELEASE = "release";
-	private final static String CHANGE = "change";
+	// private final static String CHANGE = "change";
 
 	protected transient static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -36,21 +35,21 @@ public class ChangelogFactory {
 			int eventType = parser.getEventType();
 			while (eventType != XmlResourceParser.END_DOCUMENT) {
 				switch (eventType) {
-					case XmlResourceParser.START_TAG: {
-						if (RELEASE.equals(parser.getName())) {
-							String d = parser.getAttributeValue(null, "date");
-							String v = parser.getAttributeValue(null, "version");
-							release = new Release();
-							release.setVersion(v);
-							release.setDate(sdf.parse(d));
-							changelog.getReleases().add(release);
-						}
-						break;
+				case XmlResourceParser.START_TAG: {
+					if (RELEASE.equals(parser.getName())) {
+						String d = parser.getAttributeValue(null, "date");
+						String v = parser.getAttributeValue(null, "version");
+						release = new Release();
+						release.setVersion(v);
+						release.setDate(sdf.parse(d));
+						changelog.getReleases().add(release);
 					}
-					case XmlResourceParser.TEXT: {
-						change = new Change(parser.getText());
-						release.getChanges().add(change);
-					}
+					break;
+				}
+				case XmlResourceParser.TEXT: {
+					change = new Change(parser.getText());
+					release.getChanges().add(change);
+				}
 				}
 				eventType = parser.next();
 			}
@@ -96,11 +95,7 @@ public class ChangelogFactory {
 		View view = ChangelogFactory.inflate(ctx, changelog);
 
 		AlertDialog.Builder bldr = new AlertDialog.Builder(ctx).setTitle(R.string.title).setIcon(iconId).setView(view)
-				.setNegativeButton(R.string.close, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-						//
-					}
-				});
+				.setNegativeButton(R.string.close, null);
 		return bldr;
 	}
 }
