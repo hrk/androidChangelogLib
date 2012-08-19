@@ -69,19 +69,19 @@ public class ChangelogFactory {
 
 	public static View inflate(Context ctx, Changelog changelog) {
 		LayoutInflater li = LayoutInflater.from(ctx);
-		View view = li.inflate(R.layout.changelog_view, null, false);
+		View view = li.inflate(R.layout.changelog_view, null);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		LinearLayout changelogContainer = (LinearLayout) view.findViewById(R.id.changelog_container);
 		for (Release release : changelog.getReleases()) {
 
-			TextView tvRelease = (TextView) li.inflate(R.layout.changelog_release, null, false);
+			TextView tvRelease = (TextView) li.inflate(R.layout.changelog_release, null);
 			SpannableString ss = new SpannableString(sdf.format(release.getDate()) + " - " + release.getVersion());
 			ss.setSpan(new StyleSpan(Typeface.BOLD), 0, ss.length(), 0);
 			tvRelease.setText(ss);
 			changelogContainer.addView(tvRelease);
 			for (Change change : release.getChanges()) {
-				TextView tvChange = (TextView) li.inflate(R.layout.changelog_change, null, false);
+				TextView tvChange = (TextView) li.inflate(R.layout.changelog_change, null);
 				tvChange.setText("- " + change.getText());
 				changelogContainer.addView(tvChange);
 			}
